@@ -24,7 +24,7 @@ spec:
         - name: vprodb-port
           containerPort: 3306
         env:
-        - name: MYQSL_ROOT_PASSWORD
+        - name: MYSQL_ROOT_PASSWORD  # Fixed the typo here as well, 'MYSQL' instead of 'MYQSL'
           valueFrom:
             secretKeyRef:
               name: app-secret
@@ -33,8 +33,7 @@ spec:
         - name: vpro-db-data
           persistentVolumeClaim:
             claimName: db-pv-claim
-
-      InitContainers:
+      initContainers:  # Corrected the casing here
         - name: busybox
           image: busybox:latest
           args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
